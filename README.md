@@ -166,48 +166,21 @@ Generate-then-Verify/
 
 ## 📊 Results
 
-All numbers below are reported in the accompanying manuscript. `Baseline` is the standalone VLM; `Ours` is Generate-then-Verify with the same backbone.
+Evaluation covers image-level detection under Standard / Strict / Lenient regimes, per-rule performance, the four trustworthiness indices (i-FPR, iHR, rHR, HER), and the Human-in-the-Loop user study. `Baseline` is the standalone VLM; `Ours` is Generate-then-Verify with the same backbone.
 
-**Image-level detection performance**
+**Experiments in progress.** The performance metrics are being recomputed and are intentionally withheld until the final evaluation is complete. Every cell will be filled at release.
 
-| Regime | Metric | Qwen2.5-VL Baseline | Qwen2.5-VL Ours | GPT-5.4 Baseline | GPT-5.4 Ours |
-| --- | --- | :---: | :---: | :---: | :---: |
-| Standard | Precision | 0.6701 | 0.7414 | 0.6972 | 0.7662 |
-| Standard | Recall | 0.8707 | 0.7915 | 0.8668 | 0.7973 |
-| Standard | F1 | 0.7573 | 0.7656 | 0.7728 | 0.7815 |
-| Standard | Accuracy | 0.6419 | 0.6890 | 0.6729 | 0.7138 |
-| Strict | F1 | 0.4773 | 0.5021 | 0.4728 | 0.4871 |
-| Strict | Accuracy | 0.3652 | 0.4466 | 0.3845 | 0.4497 |
-| Lenient | F1 | 0.5864 | 0.6157 | 0.5479 | 0.5752 |
-| Lenient | Accuracy | 0.4634 | 0.5452 | 0.4498 | 0.5242 |
+| Evaluation | Metric | Baseline | Ours |
+| --- | --- | :---: | :---: |
+| Image-level (Standard) | Precision / Recall / F1 / Accuracy | — | — |
+| Image-level (Strict) | Precision / Recall / F1 / Accuracy | — | — |
+| Image-level (Lenient) | Precision / Recall / F1 / Accuracy | — | — |
+| Per-rule | F1 for Rule 1–4 and macro average | — | — |
+| Trustworthiness | i-FPR ↓ / iHR ↓ / rHR ↓ | — | — |
+| Trustworthiness | HER ↑ | — | — |
+| HITL study | Time per image ↓ / Edit operations ↓ / Direct acceptance ↑ | — | — |
 
-**Trustworthiness and hallucination mitigation**
-
-| Metric | Qwen2.5-VL Baseline | Qwen2.5-VL Ours | Δ | GPT-5.4 Baseline | GPT-5.4 Ours | Δ |
-| --- | :---: | :---: | :---: | :---: | :---: | :---: |
-| i-FPR ↓ | 0.7682 | 0.4948 | -35.6% | 0.6747 | 0.4360 | -35.4% |
-| iHR ↓ | 0.3033 | 0.2379 | -21.6% | 0.2847 | 0.2169 | -23.8% |
-| rHR ↓ | 0.4863 | 0.4269 | -12.2% | 0.4814 | 0.4364 | -9.4% |
-| HER ↑ | — | 0.2885 | — | — | 0.2484 | — |
-
-**Per-rule F1 (Qwen2.5-VL-72B-Instruct)**
-
-| Category | Baseline | Ours |
-| --- | :---: | :---: |
-| Rule 1 — missing PPE | 0.6318 | 0.7030 |
-| Rule 2 — height work | 0.6719 | 0.6719 |
-| Rule 3 — edge protection | 0.6326 | 0.6474 |
-| Rule 4 — machinery proximity | 0.4981 | 0.4519 |
-| Macro average | 0.6086 | 0.6185 |
-
-Rule 4 is the deliberate exception: the conservative verification policy trades a small amount of detection F1 for a higher hallucination elimination rate and better strict-scene comprehension.
-
-**Human-in-the-Loop user study** (3 civil-engineering Ph.D. students, 20 images, randomized order)
-
-| Audit setup | Time / image (s) ↓ | Edit operations ↓ | Direct acceptance ↑ |
-| --- | :---: | :---: | :---: |
-| Pure manual | 113 | 8.4 | — |
-| Proposed HITL | 35 | 0.8 | 50% |
+Per-backbone breakdowns for Qwen2.5-VL-72B-Instruct and GPT-5.4 will be added together with the main table.
 
 ---
 
