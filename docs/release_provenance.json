@@ -1,0 +1,43 @@
+{
+  "configuration": "configs/final.json",
+  "configuration_sha256": "cee20a9c5b23629e89df596bf34400004603f88a9d0d6ec22f0ecc7e1ad95313",
+  "source_configuration": "configs/studies/final_benchmark_cv/frozen/chd_f1.json",
+  "validation_scope": "Historical non-bbox Qwen logs and finalized 807-image GT, explicitly retained for this release by the user. The newer bbox-log correction is deferred.",
+  "validation_input": "data/vlm_logs/qwen",
+  "validation_reference": "20261028_162221__replay__qwen__q24_frozen_paper_ablation_fivefold",
+  "training_free": true,
+  "vlm_per_image": 1,
+  "annotations": [
+    {
+      "file": "data/annotations/benchmark_labels_final.csv",
+      "source": "data/annotations/benchmark_labels_final.csv",
+      "size_bytes": 24355,
+      "sha256": "89f435242bf8c5d302bb4de8f8282ad8406bd9480a2b4b1718f5b14dc25792b2"
+    },
+    {
+      "file": "data/annotations/benchmark_labels_final_metadata.jsonl",
+      "source": "data/annotations/benchmark_labels_final_metadata.jsonl",
+      "size_bytes": 162188,
+      "sha256": "6e7df6ff54e3b66d49c7e53b331d7a8729a514d0b8c6bcf616f93a82cf329f72"
+    }
+  ],
+  "removed_from_public_copy": [
+    "historical searches and alternative configurations",
+    "UI and migration scripts",
+    "unrelated tests",
+    "full VLM logs and model evidence",
+    "experiment runs and result tables",
+    "image files and model weights"
+  ],
+  "original_project_modified": false,
+  "verification": {
+    "input": "historical data/vlm_logs/qwen, without bbox prompt",
+    "images": 807,
+    "prediction_rows_matched": 6456,
+    "metric_values_matched": 960,
+    "ground_truth": "benchmark_labels_final.csv",
+    "new_inference": false,
+    "threshold_selection": false,
+    "scope": "Saved-output equivalence only; optional GPU adapters and fresh environment installation were not tested."
+  }
+}

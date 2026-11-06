@@ -1,0 +1,164 @@
+{
+  "files": [
+    {
+      "file": ".gitignore",
+      "size_bytes": 202,
+      "sha256": "81fccd30e93eddf9d254896f8589ea8162a9ebc7097c83735577c4cb60e19866"
+    },
+    {
+      "file": "README.md",
+      "size_bytes": 10128,
+      "sha256": "336c439dcb16536fc8758db1e8708fa8f1763d4dcc59a393494fb91033497c9c"
+    },
+    {
+      "file": "configs/final.json",
+      "size_bytes": 1722,
+      "sha256": "cee20a9c5b23629e89df596bf34400004603f88a9d0d6ec22f0ecc7e1ad95313"
+    },
+    {
+      "file": "data/README.md",
+      "size_bytes": 2410,
+      "sha256": "08343263665ede9549e8b30e2b759bf3f9f37a75d4c083695ed2820375ee45b9"
+    },
+    {
+      "file": "data/annotations/benchmark_labels_final.csv",
+      "size_bytes": 24355,
+      "sha256": "89f435242bf8c5d302bb4de8f8282ad8406bd9480a2b4b1718f5b14dc25792b2"
+    },
+    {
+      "file": "data/annotations/benchmark_labels_final_metadata.jsonl",
+      "size_bytes": 162188,
+      "sha256": "6e7df6ff54e3b66d49c7e53b331d7a8729a514d0b8c6bcf616f93a82cf329f72"
+    },
+    {
+      "file": "data/annotations/version.json",
+      "size_bytes": 568,
+      "sha256": "5a6d2c0f65adb76f8aa042ec45f8afcedd36fa751bb57e0907cdccaae986f615"
+    },
+    {
+      "file": "data/image_ids.txt",
+      "size_bytes": 6456,
+      "sha256": "05272824f7c88f0be9f7d8fe50d8a0d29e03f20ed38416c5648141d15531e5d5"
+    },
+    {
+      "file": "data/splits/five_subsets.json",
+      "size_bytes": 15767,
+      "sha256": "d77eb1aecf0971850ae3471fc42cb7193b74610d8f876d2130d33d8499d6c866"
+    },
+    {
+      "file": "docs/checkpoints.json",
+      "size_bytes": 869,
+      "sha256": "ed6fad26497fed6d0e7e39113959f6afa5e8f063dddb76723a6d6c609bb24b0c"
+    },
+    {
+      "file": "docs/environment.md",
+      "size_bytes": 2635,
+      "sha256": "a440f8abfcbd5c370e5ff5caa4874fcaea89a6b7cf8313034071049a6ba4b02c"
+    },
+    {
+      "file": "docs/groundingdino_source_manifest.json",
+      "size_bytes": 7830,
+      "sha256": "dafe2284e465ac7729bb53d4ba6958184fae3b3c9029093f6ff01adda2eb5aa1"
+    },
+    {
+      "file": "docs/method.md",
+      "size_bytes": 3138,
+      "sha256": "717ce4d3a887830d7eb53ae3220bbe92c0c01be61e1dc642f1a3980b71ffcd7c"
+    },
+    {
+      "file": "docs/metrics.md",
+      "size_bytes": 1955,
+      "sha256": "b2ba68b15f36aeaadc8a1325efdc69ae1e7165528486dcb6c391ad77c67e503a"
+    },
+    {
+      "file": "docs/release_provenance.json",
+      "size_bytes": 1842,
+      "sha256": "988a07dfa7b39efe25dfa34bd3b1acb5f8b58cb03e781da2e478c9aecd33b885"
+    },
+    {
+      "file": "environment.yml",
+      "size_bytes": 146,
+      "sha256": "a0123143e33aba1918e3d8e9cd578d4777bbb23e9ec3df5df39860c55721bb08"
+    },
+    {
+      "file": "experiments/README.md",
+      "size_bytes": 807,
+      "sha256": "53a06b1002be01c51442ea1b8d408e1def76a489d96371828ca650180461c8b6"
+    },
+    {
+      "file": "models/README.md",
+      "size_bytes": 1675,
+      "sha256": "2fe14eb59f67c54065179d02e78aab6daf069fd80b4dc2eda465f85b40bab523"
+    },
+    {
+      "file": "prompts/safety_report.txt",
+      "size_bytes": 4213,
+      "sha256": "a80f24d9eefd70638bfd4a707292fa97ab3e76758fbee1cbf194bddc4c1cdbcd"
+    },
+    {
+      "file": "requirements/cv.txt",
+      "size_bytes": 255,
+      "sha256": "77272f2823feb04d269717a9218288677e3aed7385535aaf4133eb2769878803"
+    },
+    {
+      "file": "requirements/vlm.txt",
+      "size_bytes": 302,
+      "sha256": "4d5197dcb2b6438d32c9b4df4972cad403d2de63572b5e025c02ba9a2e78b884"
+    },
+    {
+      "file": "requirements.txt",
+      "size_bytes": 90,
+      "sha256": "69a0efd070782c28830cf4c9e30cdb1a58518d6883bac15d2c74ca13ef459237"
+    },
+    {
+      "file": "run.sh",
+      "size_bytes": 213,
+      "sha256": "76fc4d07223a0ef4f4d781a83b6e54a64b0bd1758acc71054d4c956bca24e545"
+    },
+    {
+      "file": "src/cli.py",
+      "size_bytes": 6322,
+      "sha256": "16b1ed1f04656e75a650eb1e66f565d582390a19989be39b720a75abbdba0ba1"
+    },
+    {
+      "file": "src/data_io.py",
+      "size_bytes": 3525,
+      "sha256": "73081ab36740a98ce55a57cfb7caa9ddf5d25fd331d11769e0adbf0d29353f76"
+    },
+    {
+      "file": "src/detection.py",
+      "size_bytes": 5539,
+      "sha256": "ecba0fad85ddecd7b1df70df29170805c319cf598256743bd8791047bc00a2ef"
+    },
+    {
+      "file": "src/evaluation.py",
+      "size_bytes": 5905,
+      "sha256": "f1b813b088c0d351a4dcb950074e76b5bb4742caa62d1381bf5bc21550fe56c0"
+    },
+    {
+      "file": "src/experiment_runner.py",
+      "size_bytes": 5904,
+      "sha256": "657229f10f43064c6b92a36eb265fd5ac321f20883ba0c7661c59dc6d62bc129"
+    },
+    {
+      "file": "src/fusion.py",
+      "size_bytes": 6080,
+      "sha256": "941e7797a78d7e98ac080a28b640f5a0a5cd1ab7e469514dd94e76501f52cf61"
+    },
+    {
+      "file": "src/generation.py",
+      "size_bytes": 3604,
+      "sha256": "9288904cda0dd5adbb27f3d10d0079468842a9ba02e9efec31c2f9976fc8c281"
+    },
+    {
+      "file": "src/paired_statistics.py",
+      "size_bytes": 6592,
+      "sha256": "5eaa949f6e152944471dcec86367218d8c2035a2934dcf2abfc3a2f4fb52d080"
+    },
+    {
+      "file": "src/project_paths.py",
+      "size_bytes": 264,
+      "sha256": "7f81eb4dd542d46b354f89333f96f4443594631e091951c4d504b56fa3264439"
+    }
+  ]
+}

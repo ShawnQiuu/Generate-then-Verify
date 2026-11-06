@@ -1,0 +1,9 @@
+{
+  "authoritative_csv": "data/annotations/benchmark_labels_final.csv",
+  "csv_sha256": "89f435242bf8c5d302bb4de8f8282ad8406bd9480a2b4b1718f5b14dc25792b2",
+  "canonical_metadata": "data/annotations/benchmark_labels_final_metadata.jsonl",
+  "canonical_sha256": "6e7df6ff54e3b66d49c7e53b331d7a8729a514d0b8c6bcf616f93a82cf329f72",
+  "source_run": "20261019_235442__agreement__human__benchmark_final_csv_verified",
+  "images": 807,
+  "note": "Current user-corrected final A/B plus third-expert arbitration labels. Replaces previous evaluation GT; no100-image test use."
+}

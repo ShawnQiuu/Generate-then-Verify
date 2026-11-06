@@ -1,0 +1,63 @@
+{
+  "name": "fixed_chd960_f1",
+  "training_free": true,
+  "vlm_per_image": 1,
+  "selection_scope": "All807 development; deployment setting, not OOF evaluation",
+  "seed": 20261016,
+  "person_min_height": 0.01,
+  "extra_nms_iou": 1.0,
+  "rules": {
+    "Rule 1": {
+      "mode": "count",
+      "person_conf": 0.65,
+      "no_hardhat_conf": 0.04,
+      "head_fraction": 0.4,
+      "unique_heads": true,
+      "override_conf": 0.2,
+      "count": 1
+    },
+    "Rule 2": {
+      "mode": "vlm",
+      "person_conf": 0.55,
+      "harness_conf": 0.5,
+      "scene": "Elevated work"
+    },
+    "Rule 3": {
+      "mode": "cv",
+      "person_conf": 0.55,
+      "guardrail_conf": 0.55,
+      "guardrail_distance": 1.0,
+      "scene": "Deep pit/edge work"
+    },
+    "Rule 4": {
+      "mode": "and",
+      "person_conf": 0.2,
+      "machinery_conf": 0.08,
+      "machinery_distance": 2.5,
+      "machinery_min_height": 1.5,
+      "bottom_tolerance": 1.5,
+      "machinery_min_area": 0.0001,
+      "machinery_max_area": 0.64
+    }
+  },
+  "extraction": {
+    "person_source": "official",
+    "chd": true,
+    "imgsz": 960,
+    "person_floor": 0.2,
+    "object_floor": 0.03,
+    "dino_floor": 0.2,
+    "text_floor": 0.2,
+    "legacy_rgb_input": false,
+    "dino_replace_chd": false,
+    "yolo_nms_iou": 0.7,
+    "harness_prompt": "safety harness . safety belt . fall arrest lanyard . full body harness . safety rope .",
+    "guardrail_prompt": "guardrail . fence . safety net . handrail . safety barrier . edge protection ."
+  },
+  "models": {
+    "person_weights": "models/yolo26x.pt",
+    "chd_weights": "models/chd_yolo26x.pt",
+    "dino_weights": "models/groundingdino_swinb_cogcoor.pth",
+    "bert": "models/bert-base-uncased"
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "note": "Hashes reused from the verified local asset registry; checkpoints are not bundled.",
+  "checkpoints": [
+    {
+      "file": "CHDYOLO26/yolo26x.pt",
+      "size_bytes": 118327717,
+      "sha256": "f01319225ad83b53e7f13191d82251096e1dcf8c4eee4e384dfe85469ef21c5e",
+      "source_project_path": "models/YOLO/CHDYOLO26/yolo26x.pt"
+    },
+    {
+      "file": "yolo26x.pt",
+      "size_bytes": 118667365,
+      "sha256": "9fdd44a31c504547ffb81d2c6d9e6dac3493c8eaa8b0398d3f43bae6c7003e92",
+      "source_project_path": "models/YOLO/yolo26x.pt"
+    },
+    {
+      "file": "weights/grounding-dino/groundingdino_swinb_cogcoor.pth",
+      "size_bytes": 938057991,
+      "sha256": "46270f7a822e6906b655b729c90613e48929d0f2bb8b9b76fd10a856f3ac6ab7",
+      "source_project_path": "models/GroundingDINO/weights/grounding-dino/groundingdino_swinb_cogcoor.pth"
+    }
+  ]
+}

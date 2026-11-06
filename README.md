@@ -1,244 +1,138 @@
 # Generate-then-Verify
 
-**A training-free, evidence-grounded framework for trustworthy vision-language reasoning in safety-critical applications.**
+Code and annotations for **Generate-then-Verify: A Training-Free Evidence-Grounded Framework for Trustworthy Vision-Language Reasoning in Safety-Critical Applications**.
 
-Generate-then-Verify treats VLM-generated risk descriptions as preliminary hypotheses and verifies them against independent visual evidence from a multi-expert computer vision engine equipped with spatial-geometric reasoning.
+The framework combines the output of **one vision-language model per image** with frozen visual detectors and deterministic rules for construction safety reporting. This repository contains the final `fixed_chd960_f1` configuration and the finalized **ConstructionSite-RB** rule-level annotations.
 
-![Python 3.10](https://img.shields.io/badge/Python-3.10-3776AB)
-![Training-free](https://img.shields.io/badge/Paradigm-Training--free-6F42C1)
-![License MIT](https://img.shields.io/badge/License-MIT-2EA043)
-![arXiv coming soon](https://img.shields.io/badge/arXiv-coming%20soon-B31B1B)
+No detector, VLM, fusion model, or calibrator is trained by this framework. Rules and thresholds were selected using the 807-image development set; training-free does not imply label-free.
 
----
-
-## 📰 News
-
-- **[v0.4] Benchmark & HITL study** — ConstructionSite-RB evaluation subset, trustworthiness metrics, and the Human-in-the-Loop auditing interface. *TBD.*
-- **[v0.3] Rule-conditioned verification hub** — micro-object verification, context-gated absence verification, and dynamic open-vocabulary anchoring. *TBD.*
-- **[v0.2] Multi-expert visual evidence engine** — YOLO + GroundingDINO detectors with spatial-geometric constraint modeling. *TBD.*
-- **[v0.1] Semantic stream** — fixed-prompt VLM hypothesis generation with structured scene context and anomaly tuples. *Work in progress.*
-
----
-
-## ✨ Overview
-
-Vision-language models are increasingly applied to safety-critical decision support, where their outputs are consumed as inspection records rather than as free-form commentary. In construction safety management this exposes three reliability problems: hallucinated hazards that are not physically present, spatial descriptions that do not correspond to the scene, and conclusions that cannot be traced back to visual evidence. Supervised fine-tuning does not resolve them, because it optimizes the likelihood of reference text and never checks whether a claim is supported by the image.
-
-Generate-then-Verify keeps the VLM frozen and relocates trust to an explicit verification stage. A Semantic Stream produces a structured scene context and a set of risk hypotheses. In parallel, a Spatial-Geometric Stream extracts localized evidence for workers, PPE, and machinery using a domain-specific YOLO detector for workers, missing hard hats, and machinery, together with GroundingDINO for the open-vocabulary localization of safety harnesses and guardrails. Bounding boxes are then converted into geometric evidence: shortest-edge distance to guardrails or machinery, containment of a harness centroid inside a worker box, and scale-normalized proximity constraints.
-
-A Rule-Conditioned Verification Hub fuses the two streams with per-rule policies instead of a single monolithic ensemble. Micro-object and proximity hazards use evidence-anchored AND / adaptive OR verification; absence-based hazards such as missing harnesses are gated by the semantic scene context; long-tail hazards are anchored by turning the VLM description into a GroundingDINO text query. The result is a structured report in which every retained hazard carries the geometric evidence that justifies it, which a safety manager can approve, edit, or reject in a Human-in-the-Loop interface.
-
-Unlike training-time alignment approaches that internalize a verifier into model weights, this framework performs no parameter update at deployment and leaves every rejection attributable to a named rule and a visible box — a property that matters when the decision itself has to be audited.
-
----
-
-## 🏗️ Architecture
-
-```mermaid
-flowchart LR
-    I["Construction-scene image<br/>site camera / mobile phone / camera"] --> S1
-    I --> S2
-
-    subgraph SEM["① Semantic Stream"]
-        S1["VLM<br/>Qwen2.5-VL-72B-Instruct / GPT-5.4"] --> S1a["Structured semantic tuple<br/>scene context C + anomaly hypotheses A"]
-    end
-
-    subgraph GEO["② Spatial-Geometric Stream"]
-        S2["YOLO<br/>workers / missing hard hats / machinery<br/>+ GroundingDINO<br/>harnesses / guardrails"] --> S2a["Bounding boxes + geometric constraints<br/>explicit evidence G"]
-    end
-
-    S1a --> HUB["③ Rule-Conditioned Verification Hub"]
-    S2a --> HUB
-    HUB --> P1["Rule 1 & 4<br/>evidence-anchored AND / adaptive OR"]
-    HUB --> P2["Rule 2 & 3<br/>context-gated absence verification"]
-    HUB --> P3["Other hazards<br/>dynamic open-vocabulary anchoring"]
-    P1 --> V["Verified risk set<br/>+ geometric evidence"]
-    P2 --> V
-    P3 --> V
-    V --> R["④ Traceable report + HITL review<br/>approve / modify / reject"]
-```
-
-The VLM is used only as a semantic prior. No hazard enters the final report unless the verification hub either confirms it geometrically or explicitly retains it as a low-confidence candidate for human auditing.
-
----
-
-## 🔍 Safety rules and verification policies
-
-| Rule | Hazard category | Visually computable criterion |
-| --- | --- | --- |
-| Rule 1 | Missing PPE | Personnel not wearing a hard hat. |
-| Rule 2 | Height work risk | Workers at visually significant elevated heights lacking safety harnesses or lanyards. |
-| Rule 3 | Edge protection risk | Unprotected deep pits, trenches, or steep edges lacking guardrails or fences, exposing nearby workers to fall hazards. |
-| Rule 4 | Machinery proximity | Workers standing dangerously close to excavators, e.g. within blind spots or operation radii. |
-| Other | Open vocabulary | Long-tail hazards expressed as free-form descriptions and anchored by a GroundingDINO text query. |
-
-Reference configuration used in the manuscript:
-
-| Component | Setting |
-| --- | --- |
-| VLM backbones | Qwen2.5-VL-72B-Instruct (open-source), GPT-5.4 (closed-source) |
-| Person detection confidence | 0.55 |
-| Missing hard hat confidence | 0.08 |
-| GroundingDINO box threshold, guardrails | 0.55 |
-| GroundingDINO box threshold, harnesses | 0.50 |
-| Minimum person height ratio | 0.01 |
-| Guardrail distance multiplier `λ_g` | 2.0 |
-| Machinery distance multiplier `λ_m` | 2.5 |
-
----
-
-## 🚀 Quickstart
-
-> The code release is pending. Entry points below are the intended interface and will be published with the roadmap milestones; they are **not runnable yet**.
-
-### 1. Environment
-
-```bash
-conda create -n gtv python=3.10 -y
-conda activate gtv
-pip install -r requirements.txt   # placeholder — dependency list to be released
-```
-
-### 2. Run the pipeline
-
-```bash
-python scripts/run_pipeline.py \
-    --config configs/pipeline.yaml \
-    --input assets/example.jpg \
-    --output outputs/report.json
-
-# TODO: script, config, detector weights, and verification logic to be released. TBD.
-```
-
-### 3. Report format
-
-The output is a structured, evidence-grounded safety report rather than a bare label:
-
-```json
-{
-  "scene_context": ["pit"],
-  "work_content": "Installation of steel beams into the pit edge",
-  "participants_equipment": "4 workers; excavator partially visible",
-  "anomalies": [
-    {
-      "object": "deep pit edge",
-      "status": "unprotected edge without guardrails",
-      "rule": "Rule 3",
-      "bbox": [0.0, 0.55, 1.0, 0.95],
-      "evidence": "no guardrail within 2.0 x worker height of the edge",
-      "verified": true
-    }
-  ],
-  "suggestions": ["Install guardrails along the pit edge before continuing work."]
-}
-```
-
-Each retained anomaly is paired with the geometric evidence that supports it; anomalies that fail verification are dropped or downgraded to candidates for human review.
-
----
-
-## 🗂️ Repository Structure
-
-The tree below is indicative. Entries marked `WIP` or `placeholder` are not yet released and will be populated according to the Roadmap.
+## Repository structure
 
 ```text
-Generate-then-Verify/
-├── configs/
-│   └── pipeline.yaml                   # thresholds, multipliers, rule policies (placeholder)
-├── src/
-│   ├── semantic_stream.py              # VLM hypothesis generation (WIP)
-│   ├── geometric_stream.py             # YOLO + GroundingDINO evidence extraction (WIP)
-│   ├── verification_hub.py             # rule-conditioned cross-modal verification (WIP)
-│   └── reporting.py                    # traceable report + HITL payload (WIP)
-├── scripts/
-│   └── run_pipeline.py                 # placeholder
-├── docs/
-│   ├── benchmark.md                    # ConstructionSite-RB and metric definitions
-│   └── report_schema.md                # TBD
-├── assets/
-├── data/                               # not redistributed
-├── LICENSE
-├── README.md
-└── requirements.txt                    # TBD
+configs/final.json          Final detector, geometry and fusion settings
+src/                       Detection, generation, fusion and evaluation code
+prompts/safety_report.txt   Construction safety report prompt
+data/annotations/          Final annotation CSV, JSONL and version hashes
+data/image_ids.txt         807 selected source image IDs
+data/splits/               Five fixed evaluation subsets
+requirements/              Optional detector and VLM dependencies
+docs/                      Method, metrics, environment and provenance
+models/README.md           Checkpoint sources and expected local paths
+run.sh                     Command-line entry point with experiment recording
 ```
 
----
+## Installation
 
-## 📊 Results
+Python 3.10 is recommended. For evaluation of saved model outputs:
 
-Evaluation covers image-level detection under Standard / Strict / Lenient regimes, per-rule performance, the four trustworthiness indices (i-FPR, iHR, rHR, HER), and the Human-in-the-Loop user study. `Baseline` is the standalone VLM; `Ours` is Generate-then-Verify with the same backbone.
-
-**Experiments in progress.** The performance metrics are being recomputed and are intentionally withheld until the final evaluation is complete. Every cell will be filled at release.
-
-| Evaluation | Metric | Baseline | Ours |
-| --- | --- | :---: | :---: |
-| Image-level (Standard) | Precision / Recall / F1 / Accuracy | — | — |
-| Image-level (Strict) | Precision / Recall / F1 / Accuracy | — | — |
-| Image-level (Lenient) | Precision / Recall / F1 / Accuracy | — | — |
-| Per-rule | F1 for Rule 1–4 and macro average | — | — |
-| Trustworthiness | i-FPR ↓ / iHR ↓ / rHR ↓ | — | — |
-| Trustworthiness | HER ↑ | — | — |
-| HITL study | Time per image ↓ / Edit operations ↓ / Direct acceptance ↑ | — | — |
-
-Per-backbone breakdowns for Qwen2.5-VL-72B-Instruct and GPT-5.4 will be added together with the main table.
-
----
-
-## 🗺️ Roadmap
-
-- [ ] **v0.1 — Semantic stream** *(WIP)*
-  - [x] Fixed-prompt structured hypothesis generation
-  - [ ] Release prompt template and parsing utilities
-  - [ ] Release reference outputs
-- [ ] **v0.2 — Multi-expert evidence engine**
-  - [ ] YOLO and GroundingDINO integration
-  - [ ] Geometric constraint modules (distance, containment, scale gating)
-  - [ ] Release reference detector configuration
-- [ ] **v0.3 — Rule-conditioned verification hub**
-  - [ ] Micro-object and proximity verification policies
-  - [ ] Context-gated absence verification
-  - [ ] Dynamic open-vocabulary anchoring
-  - [ ] Release verification logic and thresholds
-- [ ] **v0.4 — Benchmark & HITL**
-  - [ ] ConstructionSite-RB release (subject to dataset licensing)
-  - [ ] Evaluation scripts for Standard / Strict / Lenient regimes
-  - [ ] Trustworthiness metric implementations
-  - [ ] HITL interface
-  - [ ] Public arXiv preprint
-
----
-
-## 📚 Citation
-
-```bibtex
-@article{qiu2026generatethenverify,
-  title   = {Generate-then-Verify: A Training-Free Evidence-Grounded Framework
-             for Trustworthy Vision-Language Reasoning in Safety-Critical Applications},
-  author  = {Qiu, Shuang},
-  journal = {Manuscript under review},
-  year    = {2026},
-  note    = {Under review}
-}
+```bash
+python -m venv .venv
+source .venv/bin/activate
+python -m pip install -r requirements.txt
+./run.sh check
 ```
 
-The preprint identifier will be added once the arXiv version is available.
+Alternatively, use `conda env create -f environment.yml` and activate `generate-then-verify`. The launcher uses the active `python`; the `PYTHON` environment variable can select another interpreter.
 
----
+New detector inference requires the additional packages and checkpoints described in [docs/environment.md](docs/environment.md) and [models/README.md](models/README.md). VLM generation uses a separate environment because GroundingDINO and Qwen require different Transformers versions.
 
-## 🙏 Acknowledgements
+## ConstructionSite-RB annotations
 
-Generate-then-Verify builds on the following open-source projects and datasets:
+The benchmark contains **807 images selected from [ConstructionSite10K](https://huggingface.co/datasets/LouisChen15/ConstructionSite)**. Images are obtained from the original dataset. This repository distributes the selected image IDs and the finalized image-level annotations.
 
-- [Qwen2.5-VL](https://github.com/QwenLM/Qwen2.5-VL) — open-source VLM backbone
-- [GroundingDINO](https://github.com/IDEA-Research/GroundingDINO) — open-vocabulary localization of harnesses, guardrails, and long-tail hazards
-- [Ultralytics YOLO](https://github.com/ultralytics/ultralytics) — worker, missing-hard-hat, and machinery detection
-- [ConstructionSite10K](https://github.com/Yang-D-Y/ConstructionSite10K) — source data for the ConstructionSite-RB benchmark
-- OpenAI GPT-5.4 API — closed-source VLM backbone used in the evaluation
+| Rule | Violation | Positive images |
+| --- | --- | ---: |
+| Rule 1 | Personnel without hard hats | 205 |
+| Rule 2 | Elevated work without visible harness/lanyard protection | 93 |
+| Rule 3 | Unprotected deep pits, trenches or edges | 201 |
+| Rule 4 | Personnel dangerously close to machinery | 96 |
 
-The authors thank the maintainers of these projects for making their work publicly available.
+There are 302 safe images and 505 images with at least one violation. Labels can overlap. See [data/README.md](data/README.md) for the CSV/JSONL schemas.
 
----
+The authoritative file is [benchmark_labels_final.csv](data/annotations/benchmark_labels_final.csv); [benchmark_labels_final_metadata.jsonl](data/annotations/benchmark_labels_final_metadata.jsonl) is its canonical JSONL representation. Checksums are recorded in [version.json](data/annotations/version.json). Preserve all seven digits in image IDs, including leading zeros. The [image list](data/image_ids.txt) identifies the selected source images without requiring an image preparation script.
 
-## 📄 License
+The JSONL `source_split` field refers to the original dataset partition. It does not identify an independent test set for this work. Generated detector/VLM boxes are not human ground truth; the released human annotations are rule-level labels.
 
-This project is released under the [MIT License](LICENSE).
+## Final configuration
+
+The CV stream uses an official YOLO26 person detector, construction-specific YOLO26 missing-hardhat/machinery detections, and GroundingDINO Swin-B protection-equipment detections. YOLO uses BGR input and size 960. GroundingDINO uses its own standard image transform. The configuration uses no image crops and no second VLM.
+
+| Rule | Final decision |
+| --- | --- |
+| Rule 1 | A VLM claim with matched CV support, or at least one matched no-hardhat detection with confidence ≥ 0.20 |
+| Rule 2 | Elevated-work context and a Rule 2 claim from the same VLM |
+| Rule 3 | Pit/edge context from the VLM and a CV person without a nearby guardrail |
+| Rule 4 | A VLM Rule 4 claim and qualifying person–machinery geometry |
+
+Rule 1 associates the no-hardhat box center with the upper 40% of a person box, with at most one vote per person. Rule 2 does not require CV harness confirmation. Rule 3 does not require a separate VLM Rule 3 claim. Geometry uses two-dimensional image heuristics. All active thresholds are in [configs/final.json](configs/final.json).
+
+## Running experiments
+
+Model outputs and detector evidence are supplied by the user; full historical logs and run directories are not distributed in this code release. Logs may be a directory containing `<seven-digit-ID>.json` files or one JSONL file with `image_id` on each row. Each log contains `scene_context` and `anomalies`; anomaly rule categories are `Rule_1` through `Rule_4` or `Other`.
+
+Evaluate saved single-VLM logs:
+
+```bash
+./run.sh eval --logs /path/to/qwen_logs \
+  --run-name qwen_baseline --run-note "Standalone Qwen on final annotations"
+```
+
+Replay the final method using saved detector evidence:
+
+```bash
+./run.sh reproduce --logs /path/to/qwen_logs \
+  --evidence /path/to/evidence.jsonl \
+  --run-name qwen_final --run-note "Final configuration with saved CV evidence"
+```
+
+Recompute CV detections while reusing the chosen VLM logs:
+
+```bash
+./run.sh validate --images-dir /path/to/images --logs /path/to/qwen_logs \
+  --run-name fresh_cv --run-note "Fresh CHD960 inference with saved Qwen logs"
+```
+
+The image directory should contain files such as `0000007.jpg`. `detect` performs detector extraction only; its `outputs/evidence.jsonl` can be passed to `reproduce --evidence`. [docs/method.md](docs/method.md) specifies the evidence schema and final paper ablations.
+
+Optional new Qwen generation:
+
+```bash
+./run.sh generate --model-path /path/to/Qwen2.5-VL-72B-Instruct-AWQ \
+  --images-dir /path/to/images \
+  --run-name qwen_generation --run-note "Single-Qwen generation with the retained prompt"
+```
+
+Generation writes `outputs/logs.jsonl`. Pass that file to subsequent evaluation with `--logs`. The adapter uses greedy decoding, 1,024 new tokens and the retained pixel budget. Malformed JSON fails visibly, with raw text preserved; the adapter does not silently treat generation failure as a safe prediction. It is not guaranteed to reproduce historical model outputs byte for byte.
+
+GPT saved-log evaluation uses `--model gpt --logs /path/to/gpt_logs` with the same frozen configuration. Each invocation uses only one VLM. No GPT API client or API credentials are included.
+
+Use `--image_ids_file /path/to/ids.txt` for an explicit subset of the 807 benchmark IDs. Relative paths are resolved against the repository root. See `./run.sh --help` for all options.
+
+## Evaluation and statistics
+
+The released five subsets contain 162, 162, 161, 161 and 161 images. Every subset uses the same complete frozen configuration. The configuration was previously selected using **all 807 development labels**, so these subset summaries describe development-set performance. They are not leakage-free selection-validation cross-validation or independent testing. The additional 100-image test set is not included or used.
+
+The evaluator saves pooled metrics, five-subset means and sample SDs, per-rule confusion counts and per-image predictions. Scores and rates in machine-readable outputs use a **0–1** scale. The Standard/Strict/Relaxed image-level definitions and hallucination metrics follow the original implementation; Strict accuracy is distinct from exact-set accuracy. See [docs/metrics.md](docs/metrics.md).
+
+The six paper ablations are enabled with `reproduce --ablations`; all reuse the final thresholds. For the full Qwen statistical family, add `--ablations --statistics`. The optional analysis uses 20,000 paired image bootstrap samples within subsets, 100,000 whole-image paired permutations, exact McNemar tests and a joint 355-test Holm correction. The existing GPT main comparison uses a separate 51-test family. These analyses can take longer than ordinary evaluation. Confidence intervals are pointwise and conditional on fixed predictions.
+
+For this code release, numerical equivalence was checked using the historical **non-bbox Qwen logs** and the finalized labels. The later bbox-prompt log correction is outside this release's validation scope. This distinction is retained in [docs/release_provenance.json](docs/release_provenance.json).
+
+## Experiment records
+
+Experiments run through `./run.sh` and create a new timestamped directory in `experiments/runs/`. Records include the configuration, parsed arguments, image IDs, input fingerprints, environment, source snapshot, command, console log, metrics and summary. Successful, failed and interrupted runs are retained. `check` and help are read-only. Generated run directories are excluded by `.gitignore`.
+
+Saved-output replay, new detector inference and new VLM generation are different operations. Detector and generation timings are recorded separately. End-to-end latency, memory use and cost reduction have not been established by this release's packaging checks.
+
+## Attribution
+
+Please cite the accompanying manuscript and the original [ConstructionSite10K work](https://huggingface.co/datasets/LouisChen15/ConstructionSite/blob/main/README.md) when using this benchmark. The manuscript citation should be updated when its public bibliographic record is available.
+
+Dependencies include [Ultralytics](https://github.com/ultralytics/ultralytics), [Construction Hazard Detection](https://github.com/yihong1120/Construction-Hazard-Detection), [GroundingDINO](https://github.com/IDEA-Research/GroundingDINO), and [Qwen2.5-VL](https://huggingface.co/Qwen/Qwen2.5-VL-72B-Instruct-AWQ). Original images and model weights retain their respective terms.
+
+## License
+
+- **Code** (`src/`, `configs/`, `prompts/`, `run.sh`): MIT, see [LICENSE](LICENSE).
+- **Annotations and image identifiers** (`data/annotations/`, `data/image_ids.txt`, `data/splits/`): CC BY-NC 4.0, following the license of ConstructionSite10K; see [data/annotations/LICENSE.md](data/annotations/LICENSE.md).
+
+This repository does not redistribute images or model weights.

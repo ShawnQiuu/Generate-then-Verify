@@ -1,0 +1,215 @@
+{
+  "note": "Recorded source hashes from the environment used for detection; upstream revision was not recorded.",
+  "files": [
+    {
+      "file": "groundingdino/__init__.py",
+      "size_bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "file": "groundingdino/config/GroundingDINO_SwinB_cfg.py",
+      "size_bytes": 1007,
+      "sha256": "6c6a3b89b6df23fd90d247b21211dceffca3ea82d96c23859fdc7f28958e985b"
+    },
+    {
+      "file": "groundingdino/config/GroundingDINO_SwinT_OGC.py",
+      "size_bytes": 1006,
+      "sha256": "172e80017f9395668a9cb5d1b8bd9d061c0e360471c6ed673c83b69bb14399f1"
+    },
+    {
+      "file": "groundingdino/config/__init__.py",
+      "size_bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "file": "groundingdino/datasets/__init__.py",
+      "size_bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "file": "groundingdino/datasets/cocogrounding_eval.py",
+      "size_bytes": 9398,
+      "sha256": "3194be4a6ca19e3321e2cc58b700f7245364096a933316037631511c783e43cc"
+    },
+    {
+      "file": "groundingdino/datasets/transforms.py",
+      "size_bytes": 9711,
+      "sha256": "a2cddfa32283c814f7d9583a514e792ee1a5eacd6bc4b9f8871ddfb96c94b208"
+    },
+    {
+      "file": "groundingdino/models/GroundingDINO/__init__.py",
+      "size_bytes": 823,
+      "sha256": "155c376a85cbd6935c66f290afc6ca67d360b006da0d7e0857ea07b054cc89b9"
+    },
+    {
+      "file": "groundingdino/models/GroundingDINO/backbone/__init__.py",
+      "size_bytes": 37,
+      "sha256": "a324d241d6a8d4a9d4484689c531b790c44abeb56076901058a2541860ce2d2f"
+    },
+    {
+      "file": "groundingdino/models/GroundingDINO/backbone/backbone.py",
+      "size_bytes": 7972,
+      "sha256": "cc70458b83ea52a9ca2a5106d9837ea26123d5c5af68e1a40accd9e6b918106a"
+    },
+    {
+      "file": "groundingdino/models/GroundingDINO/backbone/position_encoding.py",
+      "size_bytes": 6866,
+      "sha256": "579812d7756857f6e56f56ef606d1de8d459d6a5ad53a658bd72243a4bf609de"
+    },
+    {
+      "file": "groundingdino/models/GroundingDINO/backbone/swin_transformer.py",
+      "size_bytes": 29339,
+      "sha256": "91456e2ff4e0be6a0712ed62adec9893cb4e07c1991b4123c5532f837ad12199"
+    },
+    {
+      "file": "groundingdino/models/GroundingDINO/bertwarper.py",
+      "size_bytes": 12242,
+      "sha256": "7cbd090859e211a42763d34d1a9ae54378a2d0f3c59065717b90e814b672b917"
+    },
+    {
+      "file": "groundingdino/models/GroundingDINO/csrc/MsDeformAttn/ms_deform_attn.h",
+      "size_bytes": 1883,
+      "sha256": "88729d7ee3f72b03dd9738500d9f669c4f207b2f3bcbbea9a6adc3e75efe4e54"
+    },
+    {
+      "file": "groundingdino/models/GroundingDINO/csrc/MsDeformAttn/ms_deform_attn_cpu.cpp",
+      "size_bytes": 1311,
+      "sha256": "f05be1084eedc1eaebbfba58df8067558e3a9e9ee96851b4fabe43c1e18a609e"
+    },
+    {
+      "file": "groundingdino/models/GroundingDINO/csrc/MsDeformAttn/ms_deform_attn_cpu.h",
+      "size_bytes": 1194,
+      "sha256": "e2ea554c18cc3fa9955d58004415c59609fdb545840c0de2724abdd2bc7e282c"
+    },
+    {
+      "file": "groundingdino/models/GroundingDINO/csrc/MsDeformAttn/ms_deform_attn_cuda.cu",
+      "size_bytes": 7367,
+      "sha256": "2b43ff4ac64393a6c36edd5a0976b67b9caf94622c162f21c8c6e44663ab98f5"
+    },
+    {
+      "file": "groundingdino/models/GroundingDINO/csrc/MsDeformAttn/ms_deform_attn_cuda.h",
+      "size_bytes": 1195,
+      "sha256": "c3bb1da1377c3005e8eb832e85b5a15db55548ddd8b1683cef14e0b95dba401a"
+    },
+    {
+      "file": "groundingdino/models/GroundingDINO/csrc/cuda_version.cu",
+      "size_bytes": 140,
+      "sha256": "76594cb18029c7012972eed01f6d36a8863cd28e3602323aeebfd183f6b3ecb3"
+    },
+    {
+      "file": "groundingdino/models/GroundingDINO/csrc/vision.cpp",
+      "size_bytes": 1419,
+      "sha256": "fd990a31522b80f14d2c8c671b10b39ef5638dd83a710b879740f9c3648c5097"
+    },
+    {
+      "file": "groundingdino/models/GroundingDINO/fuse_modules.py",
+      "size_bytes": 11825,
+      "sha256": "0e9814234780744ab1041e0a611e454ff0b8f3fb81578599e522e2ef3f45f3b1"
+    },
+    {
+      "file": "groundingdino/models/GroundingDINO/groundingdino.py",
+      "size_bytes": 17406,
+      "sha256": "cdfb48d5b15d6b98f3d2002f59ae4730740a1ecfbaeba324f6840c5e4666a5b8"
+    },
+    {
+      "file": "groundingdino/models/GroundingDINO/ms_deform_attn.py",
+      "size_bytes": 15482,
+      "sha256": "42aa71c7c47e6f930f48100924393adac95eb94aae0eef779bd7cad2d5bcc95d"
+    },
+    {
+      "file": "groundingdino/models/GroundingDINO/transformer.py",
+      "size_bytes": 36805,
+      "sha256": "e3b1691d80c8ca5503862d55de8993840e2e952bba060505825a8d2f67baf1c3"
+    },
+    {
+      "file": "groundingdino/models/GroundingDINO/transformer_vanilla.py",
+      "size_bytes": 4020,
+      "sha256": "c4e69af49cd5070dd51aa9a4e33664e076ee98d3d08bb3960e6e8dceebec53d8"
+    },
+    {
+      "file": "groundingdino/models/GroundingDINO/utils.py",
+      "size_bytes": 10087,
+      "sha256": "2827ba921acaa263db7533afb6a818473a957fb2ef559c4f3407da72028a0842"
+    },
+    {
+      "file": "groundingdino/models/__init__.py",
+      "size_bytes": 754,
+      "sha256": "1b43a34c9922c74db0c9c4ec9947647ab36f2cccc43f30f1f9e072953015667a"
+    },
+    {
+      "file": "groundingdino/models/registry.py",
+      "size_bytes": 2143,
+      "sha256": "3b64fd5762a8f0e8e2e48afa96ed3918abc45ff19708a359f9f98bc1a2900eac"
+    },
+    {
+      "file": "groundingdino/util/__init__.py",
+      "size_bytes": 71,
+      "sha256": "9e535c45af09ac24ef8d5631a151f77febafe72a92ad6bfeb2d941f0c4a54e35"
+    },
+    {
+      "file": "groundingdino/util/box_ops.py",
+      "size_bytes": 3905,
+      "sha256": "9ca6f03a1df11fa7e1b9a6056e0f5a79b67682fd4c275de41353559daef7d327"
+    },
+    {
+      "file": "groundingdino/util/get_tokenlizer.py",
+      "size_bytes": 1345,
+      "sha256": "bedc47db390249eb2230c2031b114d1d5f470ed6dbc1d3905e97e742289cb3b3"
+    },
+    {
+      "file": "groundingdino/util/inference.py",
+      "size_bytes": 9395,
+      "sha256": "0c06c5dd2fa46ae89a9fa376c0eaa383d12e7fc21aa65d662bcf3e758d26b598"
+    },
+    {
+      "file": "groundingdino/util/logger.py",
+      "size_bytes": 3303,
+      "sha256": "1455b7b5d68ac7c0ab3c0dd472a9aee1d7fa4903bc70aee84f33057c409edb7f"
+    },
+    {
+      "file": "groundingdino/util/misc.py",
+      "size_bytes": 23348,
+      "sha256": "def44cace6aa403c5be40c3cc35503b4d8ea704019d33bc9af8485dfccc9ebd7"
+    },
+    {
+      "file": "groundingdino/util/slconfig.py",
+      "size_bytes": 14380,
+      "sha256": "af79fb9d2cbc969813873e257ffbad8890e23fcce9eab0c210b68b0a0279cf2f"
+    },
+    {
+      "file": "groundingdino/util/slio.py",
+      "size_bytes": 5377,
+      "sha256": "fe8dd5e3efae4a93180c0f9319af838a4f22444e1a7544b496a7cd713bf5b461"
+    },
+    {
+      "file": "groundingdino/util/time_counter.py",
+      "size_bytes": 1567,
+      "sha256": "14e08e1416920094e760b0e6082fbe374bf7838b8a0712a755c071bc41c25dad"
+    },
+    {
+      "file": "groundingdino/util/utils.py",
+      "size_bytes": 17828,
+      "sha256": "4b33dbbb960e6421136b4663e82d56f740f8f98f2792e052c7e03e71968b70c0"
+    },
+    {
+      "file": "groundingdino/util/visualizer.py",
+      "size_bytes": 12047,
+      "sha256": "a8d6415a7eaf68ba08f3f81b93ae868550a049ea1ae23ef41c507e601a24d0f8"
+    },
+    {
+      "file": "groundingdino/util/vl_utils.py",
+      "size_bytes": 3489,
+      "sha256": "19ecd4beadcd2e9a1900e6f6b884040e1000a7783ac235d9e3138d0fac874150"
+    },
+    {
+      "file": "groundingdino/version.py",
+      "size_bytes": 22,
+      "sha256": "20c8e430ededc2143396e553a3c67aac4ec483ef54efdfcb18a31cb162ca0646"
+    },
+    {
+      "file": "setup.py",
+      "size_bytes": 7432,
+      "sha256": "6b5f6f43981f1dc0d3578e75dd0490caf74a1d27e6b1c906694ea85fcd6ad864"
+    }
+  ]
+}

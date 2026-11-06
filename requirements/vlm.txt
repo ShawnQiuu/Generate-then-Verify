@@ -1,0 +1,8 @@
+# Optional generation API requirements, not a validated historical lockfile.
+# Use a separate environment from GroundingDINO.
+# Install a suitable PyTorch build and an AWQ backend for AWQ checkpoints.
+-r ../requirements.txt
+transformers>=4.49.0,<5
+accelerate>=0.26.0
+qwen-vl-utils==0.0.8
+Pillow>=9.4.0
