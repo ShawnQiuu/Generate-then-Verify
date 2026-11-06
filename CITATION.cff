@@ -1,0 +1,32 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite the repository and the accompanying manuscript."
+title: "Generate-then-Verify"
+abstract: >-
+  A training-free, evidence-grounded framework for trustworthy vision-language
+  reasoning in safety-critical applications. VLM-generated risk descriptions
+  are treated as preliminary hypotheses and verified against independent
+  visual evidence extracted by a multi-expert computer vision engine with
+  spatial-geometric reasoning, complemented by rule-conditioned verification
+  and a human-in-the-loop auditing interface.
+type: software
+authors:
+  - family-names: "Qiu"
+    given-names: "Shuang"
+year: 2026
+license: MIT
+keywords:
+  - vision-language model
+  - trustworthy artificial intelligence
+  - multimodal reasoning
+  - human-in-the-loop systems
+  - construction safety
+  - cross-modal verification
+preferred-citation:
+  type: article
+  title: "Generate-then-Verify: A Training-Free Evidence-Grounded Framework for Trustworthy Vision-Language Reasoning in Safety-Critical Applications"
+  authors:
+    - family-names: "Qiu"
+      given-names: "Shuang"
+  year: 2026
+  journal: "Manuscript under review"
+  notes: "Under review"

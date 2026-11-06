@@ -1,0 +1,42 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+build/
+dist/
+.venv/
+venv/
+.ipynb_checkpoints/
+
+# Model weights and run artifacts
+outputs/
+runs/
+weights/
+*.safetensors
+*.bin
+*.pt
+*.pth
+*.onnx
+*.ckpt
+
+# Data (public datasets are not redistributed)
+data/
+*.jpg
+*.jpeg
+*.png
+!assets/*.png
+!assets/*.jpg
+!assets/*.jpeg
+
+# Environment and local configuration
+.env
+.env.*
+*.local.yaml
+.DS_Store
+Thumbs.db
+
+# Editor / IDE
+.idea/
+.vscode/
+*.swp
